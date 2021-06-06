@@ -21,21 +21,32 @@ async def on_message(message):
     if message.author == client.user:
         return
 
+    msg = message.content.lower()
     
     print(f"\n\nReceived Message {message.content}, from {message.author}, on channel {message.channel}, on the server {message.guild}")
     
-    if message.content.lower().startswith('$hello'):
-        response = 'Hello!\nI :heart: you!'
+    if msg.startswith('$hello'):
+        response = f'Hello {message.author}!'
+    if msg.startswith('$create'):
+
+        arguments = msg.split() [1:]
+        gamemode = "standard"
+        for arg in arguments:
+            if arg == "constrictor":
+                gamemode = "constrictor"
+
+        response = f'Creating a new Battlesnake game in Discord, with gamemode: {gamemode} '#{arguments}'
+
     
-    if message.content.lower().startswith('$emojis'):
+    if msg.startswith('$emojis'):
         response = 'Server emojis' + str(message.guild.emojis)
 
-    elif message.content.lower().startswith('$smile'):
+    elif msg.startswith('$smile'):
         response = ':smile:'
     
     if response != "":
         await message.channel.send(response)
-    if message.content.lower().startswith('$play') or message.content.lower().startswith('$start'):
+    if msg.startswith('$play') or msg.startswith('$start'):
         
         #send_board(message, Board())
         game = Game(message)
@@ -63,7 +74,7 @@ async def on_message(message):
         
         #await message.channel.send("Game Over")
 
-    elif message.content.lower().startswith('$empty_board'):
+    elif msg.startswith('$empty_board'):
         response = ""
         count = 0
         for i in range(7):

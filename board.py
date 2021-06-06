@@ -39,18 +39,29 @@ class Pos:
 
 # get all the moves one could theoretically make from pos    
 def all_moves(pos):
-    test_absolutely_tail_chase1_full.json
+    return {
+        "up" : pos.up(),
+        "down": pos.down(),
+        "left": pos.left(),
+        "right": pos.right()
+    }
 
 
 class Board:
 
     def __init__(self, width=7, height=7, start=Pos(1, 1)):
         self.grid = np.zeros((width, height), dtype=object)
-        self.snake1 = Snake(self, start)
         self.width = width
         self.height = height
         self.food = []
+
+        self.start_positions = [Pos(1, 1), Pos(self.width//2, self.height//2), Pos(self.width-2, self.height-2)]
+
+        self.snake1 = Snake(self, random.choice(self.start_positions))
+
         self.update()
+
+        
     
     def is_game_over(self):
         '''Is this game over?'''
@@ -131,15 +142,10 @@ class Snake:
         start = self.head
 
         # create a dictionary of all the move names we could make -> to the locations we will end up in if we make that move
-        all_moves = {
-            "up" : start.up(),
-            "down": start.down(),
-            "left": start.left(),
-            "right": start.right()
-        }
+        moves = all_moves(start)
 
         # get the correct move location by indexing into the dictionary
-        new_head = all_moves[direction]
+        new_head = moves[direction]
         self.last_move = direction
         
         # move our snake's tail, but store its location
@@ -180,14 +186,9 @@ class Snake:
     def tail_dir(self):
         target = self.body[1]
 
-        all_moves = {
-            "up" : self.tail.up(),
-            "down": self.tail.down(),
-            "left": self.tail.left(),
-            "right": self.tail.right()
-        }
+        moves = all_moves(self.tail)
 
-        for name, pos in all_moves.items():
+        for name, pos in moves.items():
             if pos == target:
                 return name
                 
@@ -196,7 +197,7 @@ class Snake:
         
         
 
-        for name, pos in all_moves.items():
+        for name, pos in moves.items():
             if pos == target:
                 return name
         
