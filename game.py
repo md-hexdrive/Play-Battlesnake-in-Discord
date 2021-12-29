@@ -45,7 +45,7 @@ class Game:
     
     def is_move(self, message):
         '''Does this message signify a valid move command?'''
-        return self.channel == message.channel and message.content.startswith('$') and message.content.strip('$') in ["start", "$play", "up", "down", "left", "right", "end"]
+        return self.channel == message.channel and message.content.startswith('$') and message.content.strip('$') in ["start", "play", "up", "down", "left", "right", "end"]
 
     def make_move(self, direction):
         '''

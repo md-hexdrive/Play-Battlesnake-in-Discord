@@ -2,6 +2,8 @@
 import numpy as np
 from collections import deque
 import random
+
+# default emojis representations
 free_space = ":white_large_square: "
 food = ":red_circle: "
 snake_head = ":green_square: "
@@ -13,31 +15,41 @@ collidable_objects = [snake_head, snake_body]
 width = 7
 height = 7
 
+# game board position object
 class Pos:
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
+    # are two positions equal?
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
+    # the string representation of this object
+    def __str__(self):
+        return "{ x: " + self.x + ", y: " + self.y + " }"
+
+    # get the position above this position
     def up(self):
         new_pos = Pos(self.x, self.y + 1)
         return new_pos
     
+    # get the position below this position
     def down(self):
         new_pos = Pos(self.x, self.y - 1)
         return new_pos
     
+    # get the position to the left of this position
     def left(self):
         new_pos = Pos(self.x - 1, self.y)
         return new_pos
 
+    # get the position to the right of this position
     def right(self):
         new_pos = Pos(self.x + 1, self.y)
         return new_pos
 
-# get all the moves one could theoretically make from pos    
+# get all the moves one could theoretically make from a pos    
 def all_moves(pos):
     return {
         "up" : pos.up(),
@@ -46,7 +58,7 @@ def all_moves(pos):
         "right": pos.right()
     }
 
-
+# the board class
 class Board:
 
     def __init__(self, width=7, height=7, start=Pos(1, 1)):
@@ -116,7 +128,7 @@ class Board:
 
 
 
-
+# the battlesnake class
 class Snake:
 
     def __init__(self, board, start):
