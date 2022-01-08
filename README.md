@@ -5,6 +5,9 @@ This project was originally inspired by an idea given by a fellow user in the [B
 
 Currently, only a single snake plays in the game and all user interaction is via keyboard control. Any user can control the snake on the board at any given time during the game.
 
+![The game in action](https://user-images.githubusercontent.com/57779180/148626187-1e485a0b-8c2d-4bbe-a8e5-80a0d6813562.png)
+
+
 ## Commands
 Game is played using the following chat commands to control the snake.
 
