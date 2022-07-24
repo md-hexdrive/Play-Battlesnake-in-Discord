@@ -5,6 +5,7 @@ import random
 
 # default emojis representations
 free_space = ":white_large_square: "
+# free_space = "<:board_space:904405230513426452> "
 food = ":red_circle: "
 snake_head = ":green_square: "
 snake_body = ":red_square: "

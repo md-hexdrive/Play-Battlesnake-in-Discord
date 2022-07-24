@@ -8,7 +8,7 @@ import discord
 import os
 from time import sleep
 
-from board import Pos, Board, Snake
+from board import Pos, Board, Snake, free_space
 from game import Game
 from gameloop import gameloop
 
@@ -37,6 +37,19 @@ async def on_message(message):
     
     if msg.startswith('$hello'):
         response = f'Hello {message.author}!'
+    
+    if msg.startswith('$help'):
+        response = '''
+Bot Chat Commands:
+
+**$start** or **$play** - Start a new game.
+**$end** - Force-stop a game in progress.
+**$help** - This help message.
+
+**$up**, **$down**, **$left**, or **$right**: Move the snake up, down, left, or right.
+
+'''
+
     if msg.startswith('$create'):
 
         arguments = msg.split() [1:]
@@ -113,11 +126,13 @@ async def on_message(message):
         for i in range(7):
             for j in range(7):
                 count += 1
-                response += ":white_large_square: "
+                response += free_space
+            '''
             if count + 7 > 27 :
                 await message.channel.send(response)
                 response = ""
                 count = 0
+            '''
             
             response += "\n"
         await message.channel.send(response)
@@ -136,5 +151,5 @@ async def send_board(message, board):
     await message.channel.send(response)
     
 
-
+# Login using Bot Token
 client.run(os.getenv('TOKEN'))
